@@ -1,0 +1,123 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <UserSecretsId>f5efbf94-8c91-4a26-b9e7-1a978910514e</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="CarDealer.Project.Base\**" />
+    <Compile Remove="CarDealer.Project.Entities\**" />
+    <Compile Remove="CarDealer.Project.MiddlewareSupport\**" />
+    <Compile Remove="CarDealer.Project.Models\**" />
+    <Compile Remove="CarDealer.Project.RedisMiddleware\**" />
+    <Compile Remove="CarDealer.Project.Repositories\**" />
+    <Compile Remove="CarDealer.Project.Services\**" />
+    <Compile Remove="CarDealer.Project.UnitOfWork\**" />
+    <Compile Remove="CarDearler.Project.Hubs\**" />
+    <Compile Remove="N5_API.Project.Base\**" />
+    <Compile Remove="N5_API.Project.Entities\**" />
+    <Compile Remove="N5_API.Project.MiddlewareSupport\**" />
+    <Compile Remove="N5_API.Project.Models\**" />
+    <Compile Remove="N5_API.Project.RedisMiddleware\**" />
+    <Compile Remove="N5_API.Project.Repositories\**" />
+    <Compile Remove="N5_API.Project.Services\**" />
+    <Compile Remove="N5_API.Project.UnitOfWork\**" />
+    <Compile Remove="N5_API.Project.Hubs\**" />
+    <Content Remove="CarDealer.Project.Base\**" />
+    <Content Remove="CarDealer.Project.Entities\**" />
+    <Content Remove="CarDealer.Project.MiddlewareSupport\**" />
+    <Content Remove="CarDealer.Project.Models\**" />
+    <Content Remove="CarDealer.Project.RedisMiddleware\**" />
+    <Content Remove="CarDealer.Project.Repositories\**" />
+    <Content Remove="CarDealer.Project.Services\**" />
+    <Content Remove="CarDealer.Project.UnitOfWork\**" />
+    <Content Remove="CarDearler.Project.Hubs\**" />
+    <Content Remove="N5_API.Project.Base\**" />
+    <Content Remove="N5_API.Project.Entities\**" />
+    <Content Remove="N5_API.Project.MiddlewareSupport\**" />
+    <Content Remove="N5_API.Project.Models\**" />
+    <Content Remove="N5_API.Project.RedisMiddleware\**" />
+    <Content Remove="N5_API.Project.Repositories\**" />
+    <Content Remove="N5_API.Project.Services\**" />
+    <Content Remove="N5_API.Project.UnitOfWork\**" />
+    <Content Remove="N5_API.Project.Hubs\**" />
+    <EmbeddedResource Remove="CarDealer.Project.Base\**" />
+    <EmbeddedResource Remove="CarDealer.Project.Entities\**" />
+    <EmbeddedResource Remove="CarDealer.Project.MiddlewareSupport\**" />
+    <EmbeddedResource Remove="CarDealer.Project.Models\**" />
+    <EmbeddedResource Remove="CarDealer.Project.RedisMiddleware\**" />
+    <EmbeddedResource Remove="CarDealer.Project.Repositories\**" />
+    <EmbeddedResource Remove="CarDealer.Project.Services\**" />
+    <EmbeddedResource Remove="CarDealer.Project.UnitOfWork\**" />
+    <EmbeddedResource Remove="N5_API.Project.Base\**" />
+    <EmbeddedResource Remove="N5_API.Project.Entities\**" />
+    <EmbeddedResource Remove="N5_API.Project.MiddlewareSupport\**" />
+    <EmbeddedResource Remove="N5_API.Project.Models\**" />
+    <EmbeddedResource Remove="N5_API.Project.RedisMiddleware\**" />
+    <EmbeddedResource Remove="N5_API.Project.Repositories\**" />
+    <EmbeddedResource Remove="N5_API.Project.Services\**" />
+    <EmbeddedResource Remove="N5_API.Project.UnitOfWork\**" />
+    <EmbeddedResource Remove="CarDearler.Project.Hubs\**" />
+    <None Remove="CarDealer.Project.Base\**" />
+    <None Remove="CarDealer.Project.Entities\**" />
+    <None Remove="CarDealer.Project.MiddlewareSupport\**" />
+    <None Remove="CarDealer.Project.Models\**" />
+    <None Remove="CarDealer.Project.RedisMiddleware\**" />
+    <None Remove="CarDealer.Project.Repositories\**" />
+    <None Remove="CarDealer.Project.Services\**" />
+    <None Remove="CarDealer.Project.UnitOfWork\**" />
+    <None Remove="N5_API.Project.Base\**" />
+    <None Remove="N5_API.Project.Entities\**" />
+    <None Remove="N5_API.Project.MiddlewareSupport\**" />
+    <None Remove="N5_API.Project.Models\**" />
+    <None Remove="N5_API.Project.RedisMiddleware\**" />
+    <None Remove="N5_API.Project.Repositories\**" />
+    <None Remove="N5_API.Project.Services\**" />
+    <None Remove="N5_API.Project.UnitOfWork\**" />
+    <None Remove="CarDearler.Project.Hubs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ActionFilters\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="CarDealer.Project.Base\N5_API.Project.Base.csproj" />
+    <ProjectReference Include="CarDealer.Project.Entities\N5_API.Project.Entities.csproj" />
+    <ProjectReference Include="CarDealer.Project.Models\N5_API.Project.Models.csproj" />
+    <ProjectReference Include="CarDealer.Project.Repositories\N5_API.Project.Repositories.csproj" />
+    <ProjectReference Include="CarDealer.Project.Services\N5_API.Project.Services.csproj" />
+    <ProjectReference Include="CarDealer.Project.UnitOfWork\N5_API.Project.UnitOfWork.csproj" />
+  </ItemGroup>
+
+</Project>

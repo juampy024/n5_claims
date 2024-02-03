@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.3.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarDealer.Project.Entities\N5_API.Project.Entities.csproj" />
+    <ProjectReference Include="..\CarDealer.Project.Models\N5_API.Project.Models.csproj" />
+    <ProjectReference Include="..\CarDealer.Project.UnitOfWork\N5_API.Project.UnitOfWork.csproj" />
+  </ItemGroup>
+
+</Project>
