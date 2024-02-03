@@ -1,4 +1,5 @@
 ﻿using N5_API.Project.Models;
+using N5_API.Project.Repositories.ElasticSearch;
 using N5_API.Project.Services.Interfaces;
 using N5_API.Project.UoW;
 using System.Security;
@@ -8,35 +9,35 @@ namespace N5_API.Project.Services
     public class PermissionService : IPermissionService
     {   
         IUnitOfWorkSql _uow;
-        public PermissionService(IUnitOfWorkSql uow) {
+        private readonly IPermissionSearchRepository _permissionSearchRepository; // Ensure you have this dependency
+
+        public PermissionService(IUnitOfWorkSql uow, IPermissionSearchRepository permissionSearchRepository) {
 
             _uow = uow;
             _uow.InitializeEmployee();
+            _permissionSearchRepository = permissionSearchRepository;
+
         }
- 
 
         public void Dispose()
         {
             _uow.Dispose();
         }
-        /*public async Task<Permission?> Modify(Permission permission)
-        {
-            try
-            {
-                await _uow.BeginTransactionAsync();
-                var result = await _uow.Permission.ModifyPermissionAsync(permission);
-                await _uow.CompleteAsync();
-                return result;
-            }
-            catch (Exception ex)
-            {
-                string exceptionDetails = ExceptionHelper.IdentifyException(ex);
-                throw new Exception(exceptionDetails);
-            }
-        }*/
+
         public async Task<Permission?> GetPermissionAsync(int id)
         {
-            var permission = await _uow.Permission.GetPermissionAsync(id);
+            var permission = await _permissionSearchRepository.SearchPermissionAsync(id);
+
+            if (permission == null)
+            {
+                permission = await _uow.Permission.GetPermissionAsync(id);
+
+                if (permission != null)
+                {
+                    // Index the permission into Elasticsearch
+                    await _permissionSearchRepository.IndexPermissionAsync(permission);
+                }
+            }
 
             return permission;
         }

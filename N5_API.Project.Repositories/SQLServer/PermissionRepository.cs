@@ -1,4 +1,5 @@
-﻿using N5_API.Project.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using N5_API.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,19 @@ namespace N5_API.Project.Repositories.SQLServer
                     throw new ArgumentNullException(nameof(permission));
                 }
                 return permission;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<IEnumerable<Permission>> GetPermissionsAsync()
+        {
+            try
+            {
+                var permissions = await _context.Permission.ToListAsync<Permission>();
+                return permissions;
             }
             catch (Exception ex)
             {

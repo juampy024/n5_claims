@@ -28,7 +28,8 @@ namespace AuthManager.Controllers
             {
                 var response = await _permissionService.GetPermissionAsync(id);
 
-                if (response is null)return this.BadRequest(new StatusReponse<Permission>(201, "No se ha encontrado el Employee", response));
+                if (response is null)return this.NotFound(new StatusReponse<Permission>(401, "No se ha encontrado el Permiso", response));
+
                 return this.Ok(new StatusReponse<Permission>(200, "Employee Encontrado", response));
             }
             catch (Exception ex)
@@ -45,7 +46,7 @@ namespace AuthManager.Controllers
         {
             try
             {
-                if (id != permission.Id || id.GetType() != typeof(int)) return this.BadRequest(new StatusReponse<Permission>(401, "No se ha encontrado el Employee", permission));
+                if (id != permission.Id || id.GetType() != typeof(int)) return this.BadRequest(new StatusReponse<Permission>(401, "A ocurrido un error intente nuevamente", permission));
 
                 var response = await _permissionService.ModifyPermissionAsync(permission);
 
