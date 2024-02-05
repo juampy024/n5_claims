@@ -1,4 +1,5 @@
-﻿using System;
+﻿using N5_API.Project.Base.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace N5_API.Project.Models
 {
-    public class Permission
+    public class ELKPermission
     {
         public int Id { get; set; }
         public int PermissionTypeId { get; set; }

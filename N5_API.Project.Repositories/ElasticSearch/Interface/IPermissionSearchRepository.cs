@@ -1,4 +1,6 @@
-﻿using N5_API.Project.Models;
+﻿using N5_API.Project.Base.Models;
+using N5_API.Project.Models;
+using Nest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +10,11 @@ using System.Threading.Tasks;
 namespace N5_API.Project.Repositories.ElasticSearch
 {
     public interface IPermissionSearchRepository
-    {            
-        Task IndexPermissionAsync(Permission permission);
-        Task<IEnumerable<Permission>> SearchPermissionsAsync(int query);
-        Task<Permission?> SearchPermissionAsync(int id);
+    {
+        Task<IndexResponse> IndexPermissionAsync(Permission permission);
+        Task<Permission?> GetPermissionByIdAsync(string id);
 
-
-
-
+        public Task<bool> UpdatePermissionByIdAsync(string id, Permission permission);
 
     }
 }

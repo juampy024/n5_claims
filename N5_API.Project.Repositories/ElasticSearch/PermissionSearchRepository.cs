@@ -1,5 +1,8 @@
-﻿using N5_API.Project.Models;
+﻿using Elasticsearch.Net;
+using N5_API.Project.Base.Models;
+using N5_API.Project.Models;
 using Nest;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace N5_API.Project.Repositories.ElasticSearch
 {
@@ -12,51 +15,49 @@ namespace N5_API.Project.Repositories.ElasticSearch
             _elasticClient = elasticClient;
         }
 
-        public Task IndexPermissionAsync(Permission permission)
+        public async Task<IndexResponse> IndexPermissionAsync(Permission permission)
         {
-            try
-            {
-                return _elasticClient.IndexDocumentAsync(permission);
+            var response = await _elasticClient.IndexDocumentAsync(permission);
 
-            }
-            catch (Exception ex)
+            if (!response.IsValid)
             {
-                throw new Exception("Error creating index", ex);
+                // Log the error or handle it as needed
+                // The response will contain information about what went wrong
+                throw new Exception($"Failed to index document: {response.OriginalException.Message}");
             }
+
+            return response;
         }
 
-        public async Task<IEnumerable<Permission>> SearchPermissionsAsync(int query)
+        public async Task<Permission?> GetPermissionByIdAsync(string documentId)
         {
-            var searchResponse = await _elasticClient.SearchAsync<Permission>(s => s
-                .Query(q => q
-                    .Match(m => m
-                        .Field(f => f.Id)
-                    )
-                )
-            );
+            var getResponse = await _elasticClient.GetAsync<Permission>(documentId, idx => idx.Index("permission"));
 
-            return searchResponse.Documents;
-        }
-
-        public async Task<Permission?> SearchPermissionAsync(int id)
-        {
-            var searchResponse = await _elasticClient.SearchAsync<Permission>(s => s
-                .Query(q => q
-                    .Term(t => t
-                        .Field(f => f.Id)
-                        .Value(id)
-                    )
-                )
-                .Size(1)
-            );
-
-            if (searchResponse.IsValid && searchResponse.Documents.Any())
+            if (getResponse.Found)
             {
-                return searchResponse.Documents.First();
+                return getResponse.Source;
             }
             else
             {
                 return null;
+            }
+        }
+
+        public async Task<bool> UpdatePermissionByIdAsync(string documentId, Permission updatedPermission)
+        {
+            var updateResponse = await _elasticClient.UpdateAsync<Permission>(DocumentPath<Permission>.Id(documentId), u => u
+                .Index("permission")
+                .Doc(updatedPermission)
+                .Refresh(Refresh.WaitFor)
+            );
+
+            if (updateResponse.IsValid)
+            {
+                return true;
+            }
+            else
+            {
+                return false; 
             }
         }
 

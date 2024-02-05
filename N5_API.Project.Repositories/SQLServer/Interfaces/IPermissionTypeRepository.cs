@@ -1,4 +1,5 @@
-﻿using N5_API.Project.Models;
+﻿using N5_API.Project.Base.Models;
+using N5_API.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

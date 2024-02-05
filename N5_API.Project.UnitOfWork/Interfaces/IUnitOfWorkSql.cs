@@ -9,12 +9,11 @@ namespace N5_API.Project.UoW
         public IEmployeeRepository Employee { get; }
         public IPersonRepository Person { get; }
         public IPermissionRepository Permission { get; }
-
         public IPermissionTypeRepository PermissionType { get; }
 
         void InitializePerson();
         void InitializeEmployee();
-        void Initializepermission();
+        void InitializePermission();
         void InitializePermissionType();
         #endregion
         #region Transactions

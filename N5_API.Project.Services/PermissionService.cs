@@ -1,4 +1,4 @@
-﻿using N5_API.Project.Models;
+﻿using N5_API.Project.Base.Models;
 using N5_API.Project.Repositories.ElasticSearch;
 using N5_API.Project.Services.Interfaces;
 using N5_API.Project.UoW;
@@ -9,12 +9,12 @@ namespace N5_API.Project.Services
     public class PermissionService : IPermissionService
     {   
         IUnitOfWorkSql _uow;
-        private readonly IPermissionSearchRepository _permissionSearchRepository; // Ensure you have this dependency
+        private readonly IPermissionSearchRepository _permissionSearchRepository;
 
         public PermissionService(IUnitOfWorkSql uow, IPermissionSearchRepository permissionSearchRepository) {
 
             _uow = uow;
-            _uow.InitializeEmployee();
+            _uow.InitializePermission();
             _permissionSearchRepository = permissionSearchRepository;
 
         }
@@ -26,7 +26,7 @@ namespace N5_API.Project.Services
 
         public async Task<Permission?> GetPermissionAsync(int id)
         {
-            var permission = await _permissionSearchRepository.SearchPermissionAsync(id);
+            var permission = await _permissionSearchRepository.GetPermissionByIdAsync(id.ToString());
 
             if (permission == null)
             {
@@ -41,26 +41,37 @@ namespace N5_API.Project.Services
 
             return permission;
         }
-        public async Task<Permission?> ModifyPermissionAsync(Permission permission)
+        public async Task<Permission> ModifyPermissionAsync(Permission permission)
         {
             try
             {
                 await _uow.BeginTransactionAsync();
 
-                var employeeToUpdate = await _uow.Permission.ModifyPermissionAsync(permission);
+                var permissionToUpdate = await _uow.Permission.GetPermissionAsync(permission.Id);
 
                 // add concurrency check here
-                if (employeeToUpdate == null) return null;
+                if (permissionToUpdate == null) return null;
 
-                permission.LastUpdated = DateTime.Now;
-                var employeeUpdated = await _uow.Permission.ModifyPermissionAsync(permission);
+                permissionToUpdate.Description = permission.Description;
+                permissionToUpdate.PermissionTypeId = permission.PermissionTypeId;
+                permissionToUpdate.LastUpdated = DateTime.Now;
+
+
+                var permissionUpdated = await _uow.Permission.ModifyPermissionAsync(permissionToUpdate);
+
+                if (permissionUpdated == null) return null;
+
+                // Index the permission into Elasticsearch
+                bool isUpdated = await _permissionSearchRepository.UpdatePermissionByIdAsync(permissionUpdated.Id.ToString(), permissionUpdated);
 
                 await _uow.BeginTransactionAsync();
 
-                return employeeUpdated;
+                return permissionUpdated;
 
             }catch(Exception ex)
             {
+                
+                await _uow.RollbackAsync();
                 string exceptionDetails = ExceptionHelper.IdentifyException(ex);
                 throw new Exception(exceptionDetails);
             }

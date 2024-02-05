@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using N5_API.Project.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using N5_API.Project.Base.Models;
+
 
 namespace N5_API.Project.Repositories.SQLServer
 {
@@ -35,7 +31,7 @@ namespace N5_API.Project.Repositories.SQLServer
             }
         }
 
-        public async Task<IEnumerable<Permission>> GetPermissionsAsync()
+        public async Task<IEnumerable<Permission>> GetAllPermissionsAsync()
         {
             try
             {

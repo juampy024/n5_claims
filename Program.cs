@@ -5,9 +5,9 @@ using N5_API.Project.Repositories;
 using N5_API.Project.Services.Interfaces;
 using N5_API.Project.Services;
 using N5_API.Project.UoW;
-using Nest;
-using N5_API.Project.Models;
+using N5_API.Project.Base.Elastic;
 using N5_API.Project.Repositories.ElasticSearch;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,21 +40,6 @@ else
 
 
 #endregion
-
-#region ELASTIC SEARCH CONFIGURATION
-
-var settings = new ConnectionSettings(new Uri("http://localhost:9200"))
-    .DefaultIndex("permissions")
-    .BasicAuthentication("elastic", "3sLf-T22CYCrO4BIeQ9k"); // Use your actual username and password
-
-var client = new ElasticClient(settings);
-
-
-builder.Services.AddSingleton<IElasticClient>(client);
-builder.Services.AddTransient<ElasticSearchSetup>();
-
-#endregion
-
 
 #region INJECTIONS SERVICES
 builder.Services.AddScoped<IUnitOfWorkSql, UnitOfWorkSql>();
@@ -110,16 +95,15 @@ else
     builder.Services.AddControllers();
 }
 
+builder.Services.AddElasticSearch(builder.Configuration);
+
 #endregion
+
 
 #region APP SETTINGS
 var app = builder.Build();
 
 app.UseCors("CorsPolicy");
-
-
-var esSetup = app.Services.GetRequiredService<ElasticSearchSetup>();
-await esSetup.CreateIndexIfNotExistsAsync("permissions");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

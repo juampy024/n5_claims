@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CarDealer.Project.Entities\N5_API.Project.Entities.csproj" />
-    <ProjectReference Include="..\CarDealer.Project.Models\N5_API.Project.Models.csproj" />
+    <ProjectReference Include="..\N5_API.Project.Entities\N5_API.Project.Entities.csproj" />
+    <ProjectReference Include="..\N5_API.Project.Models\N5_API.Project.Models.csproj" />
   </ItemGroup>
 
 </Project>

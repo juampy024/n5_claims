@@ -1,4 +1,5 @@
-﻿using N5_API.Project.Models;
+﻿using N5_API.Project.Base.Models;
+
 namespace N5_API.Project.Services.Interfaces
 {
     public interface IPermissionService

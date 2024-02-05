@@ -109,16 +109,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ActionFilters\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="CarDealer.Project.Base\N5_API.Project.Base.csproj" />
-    <ProjectReference Include="CarDealer.Project.Entities\N5_API.Project.Entities.csproj" />
-    <ProjectReference Include="CarDealer.Project.Models\N5_API.Project.Models.csproj" />
-    <ProjectReference Include="CarDealer.Project.Repositories\N5_API.Project.Repositories.csproj" />
-    <ProjectReference Include="CarDealer.Project.Services\N5_API.Project.Services.csproj" />
-    <ProjectReference Include="CarDealer.Project.UnitOfWork\N5_API.Project.UnitOfWork.csproj" />
+    <ProjectReference Include="N5_API.Project.Base\N5_API.Project.Base.csproj" />
+    <ProjectReference Include="N5_API.Project.Entities\N5_API.Project.Entities.csproj" />
+    <ProjectReference Include="N5_API.Project.Hubs\N5_API.Project.Hubs.csproj" />
+    <ProjectReference Include="N5_API.Project.MiddlewareSupport\N5_API.Project.MiddlewareSupport.csproj" />
+    <ProjectReference Include="N5_API.Project.Models\N5_API.Project.Models.csproj" />
+    <ProjectReference Include="N5_API.Project.RedisMiddleware\N5_API.Project.RedisMiddleware.csproj" />
+    <ProjectReference Include="N5_API.Project.Repositories\N5_API.Project.Repositories.csproj" />
+    <ProjectReference Include="N5_API.Project.Services\N5_API.Project.Services.csproj" />
+    <ProjectReference Include="N5_API.Project.UnitOfWork\N5_API.Project.UnitOfWork.csproj" />
   </ItemGroup>
 
 </Project>

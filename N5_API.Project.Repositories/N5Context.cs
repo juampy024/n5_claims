@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using N5_API.Project.Models; // Assuming your entity classes are in this namespace
+using N5_API.Project.Base.Models;
+using N5_API.Project.Models;
 using System.Threading.Tasks;
 
 namespace N5_API.Project.Repositories
@@ -72,10 +73,6 @@ namespace N5_API.Project.Repositories
                       .WithMany(e => e.PermissionEmployees) 
                       .HasForeignKey(pe => pe.EmployeeId);
 
-                entity.HasOne(pe => pe.Permission)
-                      .WithMany(p => p.PermissionEmployees) 
-                      .HasForeignKey(pe => pe.PermissionId);
-
                 entity.Property(pe => pe.IsActive).HasColumnName("IsActive");
 
             });
@@ -107,9 +104,9 @@ namespace N5_API.Project.Repositories
                 entity.Property(e => e.DeletedDate).HasColumnName("DeletedDate");
                 entity.Property(e => e.PermissionTypeId).HasColumnName("PermissionTypeId");
 
-                entity.HasOne(d => d.PermissionType)
+              /*  entity.HasOne(d => d.PermissionType)
                       .WithMany(p => p.Permissions)
-                      .HasForeignKey(d => d.PermissionTypeId);
+                      .HasForeignKey(d => d.PermissionTypeId);*/
                 });
         }
 

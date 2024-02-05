@@ -12,9 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CarDealer.Project.Entities\N5_API.Project.Entities.csproj" />
-    <ProjectReference Include="..\CarDealer.Project.Models\N5_API.Project.Models.csproj" />
-    <ProjectReference Include="..\CarDealer.Project.UnitOfWork\N5_API.Project.UnitOfWork.csproj" />
+    <ProjectReference Include="..\N5_API.Project.Entities\N5_API.Project.Entities.csproj" />
+    <ProjectReference Include="..\N5_API.Project.Models\N5_API.Project.Models.csproj" />
+    <ProjectReference Include="..\N5_API.Project.UnitOfWork\N5_API.Project.UnitOfWork.csproj" />
   </ItemGroup>
 
 </Project>

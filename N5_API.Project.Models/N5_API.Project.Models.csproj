@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CarDealer.Project.Base\N5_API.Project.Base.csproj" />
+    <ProjectReference Include="..\N5_API.Project.Base\N5_API.Project.Base.csproj" />
   </ItemGroup>
 
 </Project>

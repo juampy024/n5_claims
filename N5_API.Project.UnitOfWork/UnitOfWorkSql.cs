@@ -1,4 +1,5 @@
-﻿using N5_API.Project.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using N5_API.Project.Repositories;
 using N5_API.Project.Repositories.SQLServer;
 
 
@@ -20,33 +21,38 @@ namespace N5_API.Project.UoW
         /// 
         public void InitializePerson()
         {
-                Person = new PersonRepository(_context);
+            if(Person == null) Person = new PersonRepository(_context);
         }   
         public IPersonRepository Person { get; private set; }
 
         public void InitializeEmployee()
         {
-                Employee = new EmployeeRepository(_context);
+            if(Employee == null) Employee = new EmployeeRepository(_context);
         }
 
         public IEmployeeRepository Employee { get; private set; }
 
 
-        public void Initializepermission()
-        {
-                Permission = new PermissionRepository(_context);
+        public void InitializePermission()
+        { 
+            if(Permission == null) Permission = new PermissionRepository(_context);
         }
         public IPermissionRepository Permission { get; private set; }
 
         public void InitializePermissionType()
         {
-                PermissionType = new PermissionTypeRepository(_context);
+            if(PermissionType == null) PermissionType = new PermissionTypeRepository(_context);
         }
         public IPermissionTypeRepository PermissionType { get; private set; }
 
         public virtual async Task BeginTransactionAsync()
         {
             await _context.Database.BeginTransactionAsync();
+        }
+
+        public virtual async Task CloseConnection()
+        {
+            await _context.Database.CloseConnectionAsync();
         }
 
         public virtual async Task CompleteAsync()
@@ -73,7 +79,7 @@ namespace N5_API.Project.UoW
             {
                 if (disposing)
                 {
-                    _context.Database.CurrentTransaction?.Dispose();
+                    //_context.Database.CurrentTransaction?.Dispose();
                     _context.Dispose();
                 }
 

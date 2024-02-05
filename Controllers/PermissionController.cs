@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mime;
 using N5_API.Project.Services.Interfaces;
-using N5_API.Project.Models;
 using System.Security;
+using N5_API.Project.Base.Models;
 
 namespace AuthManager.Controllers
 {
@@ -14,9 +14,11 @@ namespace AuthManager.Controllers
     public class PermissionController : BaseContoller
     {
         private readonly IPermissionService _permissionService;
-        public PermissionController(IPermissionService permissionService)
+        private ILogger<PermissionController> _logger;
+        public PermissionController(IPermissionService permissionService, ILogger<PermissionController> logger)
         {
             _permissionService = permissionService;
+            _logger = logger;
         }
 
         [HttpGet("request/{id}")]
@@ -30,7 +32,7 @@ namespace AuthManager.Controllers
 
                 if (response is null)return this.NotFound(new StatusReponse<Permission>(401, "No se ha encontrado el Permiso", response));
 
-                return this.Ok(new StatusReponse<Permission>(200, "Employee Encontrado", response));
+                return this.Ok(new StatusReponse<Permission>(200, "Persmiso Encontrado", response));
             }
             catch (Exception ex)
             {
@@ -51,7 +53,7 @@ namespace AuthManager.Controllers
                 var response = await _permissionService.ModifyPermissionAsync(permission);
 
                 if (response is null) return this.NotFound(new StatusReponse<Permission>(401, "Ha ocurrido un error inesperado, intente nuevamente", response));
-                return this.Ok(new StatusReponse<Permission>(200, "Employee Actualizado", response));
+                return this.Ok(new StatusReponse<Permission>(200, "Permiso Actualizado", response));
             }
             catch (Exception ex)
             {

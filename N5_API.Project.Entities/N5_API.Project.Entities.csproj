@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CarDealer.Project.Base\N5_API.Project.Base.csproj" />
+    <Folder Include="DTOs\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\N5_API.Project.Base\N5_API.Project.Base.csproj" />
   </ItemGroup>
 
 </Project>
